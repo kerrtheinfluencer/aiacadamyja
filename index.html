@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Futur4IsHere Mobile AI Academy</title>
+  <style>
+    :root {
+      --bg:#050816;
+      --bg-2:#0a1338;
+      --card:rgba(18,28,64,.72);
+      --card-border:rgba(132,173,255,.28);
+      --text:#eef3ff;
+      --muted:#b8c4ea;
+      --accent:#77f4ff;
+      --accent-2:#8b66ff;
+      --good:#4effc7;
+      --danger:#ff799a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 20%, #1e3e99 0%, transparent 35%),
+                  radial-gradient(circle at 80% 0%, #5a27a6 0%, transparent 30%),
+                  linear-gradient(170deg, var(--bg), var(--bg-2));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -30%;
+      pointer-events: none;
+      background: conic-gradient(from 0deg, rgba(119,244,255,.06), rgba(139,102,255,.08), rgba(78,255,199,.06), rgba(119,244,255,.06));
+      animation: spin 22s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+    @keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 rgba(119,244,255,0)} 50%{box-shadow:0 0 28px rgba(119,244,255,.25)} }
+    @keyframes shimmer { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 1rem;
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+    }
+
+    .hero {
+      animation: pulseGlow 5s ease-in-out infinite;
+    }
+
+    .version-banner {
+      margin-top: .8rem;
+      border-radius: .8rem;
+      padding: .7rem .75rem;
+      background: linear-gradient(90deg, rgba(119,244,255,.22), rgba(139,102,255,.24), rgba(78,255,199,.22));
+      background-size: 200% 100%;
+      border: 1px solid rgba(186,206,255,.45);
+      animation: shimmer 4s linear infinite;
+    }
+
+    .version-banner strong { color: #ffffff; }
+
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: .35rem .65rem;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #021121;
+      background: linear-gradient(90deg, var(--accent), var(--good));
+      animation: floaty 4s ease-in-out infinite;
+    }
+
+    h1 { margin: .6rem 0 .4rem; font-size: clamp(1.5rem, 6vw, 2.5rem); line-height: 1.15; }
+    h2 { margin: 0 0 .45rem; font-size: 1.1rem; }
+    p { color: var(--muted); margin: .35rem 0; line-height: 1.5; }
+
+    .stats {
+      margin-top: .8rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .55rem;
+    }
+
+    .stat {
+      background: rgba(7,14,36,.75);
+      border: 1px solid rgba(139,173,255,.24);
+      border-radius: .75rem;
+      padding: .65rem;
+      text-align: center;
+    }
+
+    .stat strong { display: block; font-size: 1.05rem; color: var(--accent); }
+    .stat span { font-size: .75rem; color: var(--muted); }
+
+    .module-grid { display: grid; gap: .75rem; }
+
+    .module {
+      border-radius: .85rem;
+      background: rgba(8,16,42,.72);
+      border: 1px solid rgba(140,166,255,.25);
+      padding: .8rem;
+    }
+
+    .module-head { display: flex; justify-content: space-between; align-items: center; gap: .7rem; }
+
+    .badge {
+      font-size: .74rem;
+      font-weight: 800;
+      padding: .25rem .5rem;
+      border-radius: 999px;
+      background: rgba(139,102,255,.22);
+      color: #d9cbff;
+      border: 1px solid rgba(192,168,255,.42);
+      white-space: nowrap;
+    }
+
+    .badge.complete {
+      background: rgba(78,255,199,.16);
+      color: #acffe4;
+      border-color: rgba(78,255,199,.44);
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .7rem; }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      border-radius: .68rem;
+      padding: .62rem .95rem;
+      font-weight: 700;
+      color: #061323;
+      background: linear-gradient(90deg, var(--accent), var(--good));
+      transition: transform .15s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    .secondary { color: var(--text); background: #1b2859; border: 1px solid #3b4d95; }
+
+    .ghost { color: #dff7ff; background: transparent; border: 1px dashed #6aa2ff; }
+
+    pre, textarea {
+      width: 100%;
+      margin: .55rem 0 0;
+      border-radius: .72rem;
+      border: 1px solid #3851a5;
+      background: #090f2a;
+      color: #d9f5ff;
+      padding: .75rem;
+      font-size: .82rem;
+      line-height: 1.45;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    pre { white-space: pre-wrap; word-break: break-word; }
+    textarea { min-height: 200px; resize: vertical; }
+
+    iframe {
+      margin-top: .6rem;
+      width: 100%;
+      min-height: 250px;
+      border: 1px solid #3e57ae;
+      border-radius: .72rem;
+      background: #fff;
+    }
+
+    .progress-track {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(22,34,74,.85);
+      border: 1px solid rgba(129,157,255,.32);
+      overflow: hidden;
+      margin-top: .65rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 33%;
+      background: linear-gradient(90deg, #7defff, #5effca);
+      transition: width .35s ease;
+    }
+
+    .quiz-question {
+      margin-top: .7rem;
+      padding: .7rem;
+      border-radius: .68rem;
+      background: rgba(9,18,46,.75);
+      border: 1px solid rgba(122,149,255,.25);
+    }
+
+    .quiz-question h3 { margin: 0 0 .55rem; font-size: .95rem; }
+
+    .quiz-question label {
+      display: block;
+      margin: .35rem 0;
+      font-size: .9rem;
+      color: #d8e3ff;
+    }
+
+    .result {
+      margin-top: .75rem;
+      border-radius: .68rem;
+      padding: .62rem .72rem;
+      background: rgba(255,121,154,.12);
+      border: 1px solid rgba(255,121,154,.4);
+      color: #ffdbe5;
+      font-weight: 700;
+    }
+
+    .result.pass {
+      background: rgba(78,255,199,.14);
+      border-color: rgba(78,255,199,.46);
+      color: #baffea;
+    }
+
+    .tip {
+      font-size: .78rem;
+      margin-top: .4rem;
+      color: #c5d3ff;
+      opacity: .95;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card hero">
+      <span class="pill">futur4ishere mobile academy</span>
+      <h1>Learn to vibe-code real web apps from AI chat on your phone.</h1>
+      <p>Premium mobile-first class flow: learn prompts, generate code in ChatGPT/Gemini, preview instantly, then pass a test to unlock completion.</p>
+      <div class="version-banner">
+        <strong>Visible Update: V3 LIVE</strong> — If you still see old UI, do a hard refresh on mobile browser/chat preview.
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>3</strong><span>Core Modules</span></div>
+        <div class="stat"><strong>1</strong><span>Final Quiz</span></div>
+        <div class="stat"><strong>100%</strong><span>Phone Friendly</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Class Progress</h2>
+      <p id="progressLabel">1 of 3 modules complete</p>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="module-grid" style="margin-top:.8rem;">
+        <article class="module">
+          <div class="module-head">
+            <strong>Module 1: Prompt Basics</strong>
+            <span id="mod1Status" class="badge complete">Complete</span>
+          </div>
+          <p>Teach students what a good prompt includes: output format, constraints, and next steps.</p>
+        </article>
+
+        <article class="module">
+          <div class="module-head">
+            <strong>Module 2: One Copy-and-Paste Prompt</strong>
+            <span id="mod2Status" class="badge">Locked until quiz pass</span>
+          </div>
+          <p>After understanding prompt basics, students unlock and copy the production starter prompt below.</p>
+          <pre id="starterPrompt">You are my mobile vibe-coding coach.
+Build a single-file HTML web app I can run directly in mobile chat previews.
+Rules:
+1) Return only one complete HTML file between ```html code fences.
+2) Include all CSS and JavaScript in the same file.
+3) Make the UI mobile-first and touch-friendly.
+4) Keep buttons large and labels clear.
+5) Add a short "How to edit this app in chat" section at the top.
+6) After each version, suggest 3 tiny improvements I can ask for next.
+Now build: [describe your app idea here].</pre>
+          <div class="actions">
+            <button id="copyPromptBtn" class="secondary" disabled>Pass quiz to unlock copy</button>
+            <button id="pasteDemoPrompt" class="ghost" disabled>Insert App Idea Template</button>
+          </div>
+          <p class="tip">This copy prompt appears only after prompt learning + quiz pass (as requested).</p>
+        </article>
+
+        <article class="module">
+          <div class="module-head">
+            <strong>Module 3: Live Preview Lab</strong>
+            <span id="mod3Status" class="badge">Locked until quiz pass</span>
+          </div>
+          <p>Paste HTML from AI chat and run a live app preview instantly.</p>
+          <textarea id="codeInput" placeholder="Paste AI-generated HTML here..." disabled></textarea>
+          <div class="actions">
+            <button id="runPreview" disabled>Run Preview</button>
+            <button id="loadExample" class="secondary" disabled>Load Example</button>
+          </div>
+          <iframe id="previewFrame" title="Mobile app preview sandbox"></iframe>
+        </article>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Module Test (Auto-Graded)</h2>
+      <p>Pass this quiz with at least 3/4 correct. If you pass, modules auto-check and unlock.</p>
+      <form id="quizForm">
+        <div class="quiz-question">
+          <h3>1) What output format should you ask AI to return?</h3>
+          <label><input type="radio" name="q1" value="a"> A short explanation only</label>
+          <label><input type="radio" name="q1" value="b"> One complete HTML file in code fences</label>
+          <label><input type="radio" name="q1" value="c"> A zip file</label>
+        </div>
+        <div class="quiz-question">
+          <h3>2) Why keep CSS and JS in one file for mobile chat learners?</h3>
+          <label><input type="radio" name="q2" value="a"> It is easier to copy/paste and preview quickly</label>
+          <label><input type="radio" name="q2" value="b"> It improves SEO by default</label>
+          <label><input type="radio" name="q2" value="c"> It makes AI free</label>
+        </div>
+        <div class="quiz-question">
+          <h3>3) What is the best way to improve generated apps?</h3>
+          <label><input type="radio" name="q3" value="a"> Ask for huge rewrites every time</label>
+          <label><input type="radio" name="q3" value="b"> Ask for one small upgrade at a time</label>
+          <label><input type="radio" name="q3" value="c"> Never test output</label>
+        </div>
+        <div class="quiz-question">
+          <h3>4) Where should students test AI-generated HTML in this class?</h3>
+          <label><input type="radio" name="q4" value="a"> In the Live Preview Lab iframe</label>
+          <label><input type="radio" name="q4" value="b"> Nowhere, trust output blindly</label>
+          <label><input type="radio" name="q4" value="c"> Only in desktop IDEs</label>
+        </div>
+        <div class="actions">
+          <button type="submit">Submit Test</button>
+        </div>
+      </form>
+      <div id="quizResult" class="result" style="display:none;"></div>
+    </section>
+  </main>
+
+  <script>
+    const answers = { q1: 'b', q2: 'a', q3: 'b', q4: 'a' };
+    const quizForm = document.getElementById('quizForm');
+    const quizResult = document.getElementById('quizResult');
+    const copyPromptBtn = document.getElementById('copyPromptBtn');
+    const starterPrompt = document.getElementById('starterPrompt');
+    const codeInput = document.getElementById('codeInput');
+    const pasteDemoPrompt = document.getElementById('pasteDemoPrompt');
+    const runPreview = document.getElementById('runPreview');
+    const loadExample = document.getElementById('loadExample');
+    const previewFrame = document.getElementById('previewFrame');
+    const progressFill = document.getElementById('progressFill');
+    const progressLabel = document.getElementById('progressLabel');
+    const mod2Status = document.getElementById('mod2Status');
+    const mod3Status = document.getElementById('mod3Status');
+
+    function unlockClass() {
+      copyPromptBtn.disabled = false;
+      copyPromptBtn.textContent = 'Copy Starter Prompt';
+      codeInput.disabled = false;
+      runPreview.disabled = false;
+      loadExample.disabled = false;
+      pasteDemoPrompt.disabled = false;
+      mod2Status.classList.add('complete');
+      mod3Status.classList.add('complete');
+      mod2Status.textContent = 'Complete';
+      mod3Status.textContent = 'Complete';
+      progressFill.style.width = '100%';
+      progressLabel.textContent = '3 of 3 modules complete';
+    }
+
+    quizForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let score = 0;
+      for (const [key, value] of Object.entries(answers)) {
+        const selected = quizForm.querySelector(`input[name="${key}"]:checked`);
+        if (selected && selected.value === value) score += 1;
+      }
+
+      quizResult.style.display = 'block';
+      if (score >= 3) {
+        quizResult.classList.add('pass');
+        quizResult.textContent = `Passed: ${score}/4. Modules unlocked and checked off automatically.`;
+        unlockClass();
+      } else {
+        quizResult.classList.remove('pass');
+        quizResult.textContent = `Score: ${score}/4. You need 3/4 to pass. Review prompt basics and try again.`;
+      }
+    });
+
+    copyPromptBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(starterPrompt.textContent);
+      const original = copyPromptBtn.textContent;
+      copyPromptBtn.textContent = 'Copied!';
+      setTimeout(() => { copyPromptBtn.textContent = original; }, 1200);
+    });
+
+    pasteDemoPrompt.addEventListener('click', () => {
+      const templated = `${starterPrompt.textContent.trim()}\n\nApp idea example: Build a mobile class planner with add/edit/delete lessons and color tags.`;
+      codeInput.value = templated;
+    });
+
+    runPreview.addEventListener('click', () => {
+      const src = codeInput.value.trim();
+      if (!src) return;
+      previewFrame.srcdoc = src;
+    });
+
+    loadExample.addEventListener('click', () => {
+      const demo = `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;padding:14px;font-family:system-ui;background:#f7f8ff}.card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(0,0,0,.08)}button{width:100%;padding:12px;border:0;border-radius:9px;background:#5a49ff;color:#fff;font-size:16px}</style></head><body><div class="card"><h3>Mini Task App</h3><p id="n">Tasks done: 0</p><button onclick="const p=document.getElementById('n');let v=Number(p.textContent.split(': ')[1]);p.textContent='Tasks done: '+(v+1)">+1 task</button></div></body></html>`;
+      codeInput.value = demo;
+      previewFrame.srcdoc = demo;
+    });
+  </script>
+</body>
+</html>
