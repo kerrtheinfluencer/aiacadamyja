@@ -9,11 +9,16 @@ Ground-up rebuild of the mobile-first academy page.
 - Starter prompt remains locked until test pass.
 - Live preview lab remains locked until test pass.
 - Copy prompt and HTML preview tools unlock automatically after pass.
+- **No localhost or backend server required** (single static HTML file).
 
-## Run
+## Run (No localhost required)
 
-```bash
-python3 -m http.server 4173
-```
+1. Download or clone the repo.
+2. Open `index.html` directly in your browser (or mobile file browser).
+3. If deploying to GitHub Pages, upload as-is; no server code needed.
 
-Open `http://localhost:4173`.
+## Deploy to GitHub
+
+- Commit `index.html` and `README.md`.
+- Push to GitHub.
+- Optional: enable GitHub Pages to host the static file.
