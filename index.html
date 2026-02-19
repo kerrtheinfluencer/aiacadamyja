@@ -44,6 +44,7 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
     @keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 rgba(119,244,255,0)} 50%{box-shadow:0 0 28px rgba(119,244,255,.25)} }
+    @keyframes shimmer { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
 
     .wrap {
       position: relative;
@@ -66,6 +67,18 @@
     .hero {
       animation: pulseGlow 5s ease-in-out infinite;
     }
+
+    .version-banner {
+      margin-top: .8rem;
+      border-radius: .8rem;
+      padding: .7rem .75rem;
+      background: linear-gradient(90deg, rgba(119,244,255,.22), rgba(139,102,255,.24), rgba(78,255,199,.22));
+      background-size: 200% 100%;
+      border: 1px solid rgba(186,206,255,.45);
+      animation: shimmer 4s linear infinite;
+    }
+
+    .version-banner strong { color: #ffffff; }
 
     .pill {
       display: inline-block;
@@ -146,6 +159,8 @@
     button:hover { transform: translateY(-1px); }
     .secondary { color: var(--text); background: #1b2859; border: 1px solid #3b4d95; }
 
+    .ghost { color: #dff7ff; background: transparent; border: 1px dashed #6aa2ff; }
+
     pre, textarea {
       width: 100%;
       margin: .55rem 0 0;
@@ -219,6 +234,13 @@
       border-color: rgba(78,255,199,.46);
       color: #baffea;
     }
+
+    .tip {
+      font-size: .78rem;
+      margin-top: .4rem;
+      color: #c5d3ff;
+      opacity: .95;
+    }
   </style>
 </head>
 <body>
@@ -227,6 +249,9 @@
       <span class="pill">futur4ishere mobile academy</span>
       <h1>Learn to vibe-code real web apps from AI chat on your phone.</h1>
       <p>Premium mobile-first class flow: learn prompts, generate code in ChatGPT/Gemini, preview instantly, then pass a test to unlock completion.</p>
+      <div class="version-banner">
+        <strong>Visible Update: V3 LIVE</strong> — If you still see old UI, do a hard refresh on mobile browser/chat preview.
+      </div>
       <div class="stats">
         <div class="stat"><strong>3</strong><span>Core Modules</span></div>
         <div class="stat"><strong>1</strong><span>Final Quiz</span></div>
@@ -265,7 +290,9 @@ Rules:
 Now build: [describe your app idea here].</pre>
           <div class="actions">
             <button id="copyPromptBtn" class="secondary" disabled>Pass quiz to unlock copy</button>
+            <button id="pasteDemoPrompt" class="ghost" disabled>Insert App Idea Template</button>
           </div>
+          <p class="tip">This copy prompt appears only after prompt learning + quiz pass (as requested).</p>
         </article>
 
         <article class="module">
@@ -327,6 +354,7 @@ Now build: [describe your app idea here].</pre>
     const copyPromptBtn = document.getElementById('copyPromptBtn');
     const starterPrompt = document.getElementById('starterPrompt');
     const codeInput = document.getElementById('codeInput');
+    const pasteDemoPrompt = document.getElementById('pasteDemoPrompt');
     const runPreview = document.getElementById('runPreview');
     const loadExample = document.getElementById('loadExample');
     const previewFrame = document.getElementById('previewFrame');
@@ -341,6 +369,7 @@ Now build: [describe your app idea here].</pre>
       codeInput.disabled = false;
       runPreview.disabled = false;
       loadExample.disabled = false;
+      pasteDemoPrompt.disabled = false;
       mod2Status.classList.add('complete');
       mod3Status.classList.add('complete');
       mod2Status.textContent = 'Complete';
@@ -373,6 +402,11 @@ Now build: [describe your app idea here].</pre>
       const original = copyPromptBtn.textContent;
       copyPromptBtn.textContent = 'Copied!';
       setTimeout(() => { copyPromptBtn.textContent = original; }, 1200);
+    });
+
+    pasteDemoPrompt.addEventListener('click', () => {
+      const templated = `${starterPrompt.textContent.trim()}\n\nApp idea example: Build a mobile class planner with add/edit/delete lessons and color tags.`;
+      codeInput.value = templated;
     });
 
     runPreview.addEventListener('click', () => {
