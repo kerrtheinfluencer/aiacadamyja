@@ -13,7 +13,10 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      # Integrated from provided Vercel details
+      VERCEL_ORG_ID: pri_MX3VOXUoHB8MYPuV7yFWg0xXLwoL
+      VERCEL_SCOPE_ID: team_KNQkAsVXMrmHLG6ob6CIbSUA
+      # Keep project ID and token in GitHub Secrets (do not hardcode secrets)
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Checkout
@@ -28,15 +31,15 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=preview --scope=${{ env.VERCEL_SCOPE_ID }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --scope=${{ env.VERCEL_SCOPE_ID }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Preview to Vercel
         id: vercel-deploy
         run: |
-          URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          URL=$(vercel deploy --prebuilt --scope=${{ env.VERCEL_SCOPE_ID }} --token=${{ secrets.VERCEL_TOKEN }})
           echo "preview_url=${URL}" >> "$GITHUB_OUTPUT"
 
       - name: Comment Preview URL on PR

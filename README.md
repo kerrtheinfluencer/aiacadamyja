@@ -5,9 +5,9 @@ Ground-up rebuild of the mobile-first academy page.
 ## What works
 
 - Premium mobile-friendly UI with clear "V4 Rebuild Active" marker.
-- Module progression with required Module 1 completion, then auto-graded quiz (pass threshold: 3/4).
-- Starter prompt remains locked until Module 1 is completed and test is passed.
-- Live preview lab remains locked until Module 1 is completed and test is passed.
+- Module progression with in-depth Module 1 lesson + Module 1 check, then final auto-graded quiz (pass threshold: 3/4).
+- Starter prompt unlocks only after passing the Module 1 check.
+- Live preview lab remains locked until the final test is passed.
 - Copy prompt and HTML preview tools unlock automatically after pass.
 - **No localhost or backend server required** (single static HTML file).
 
@@ -37,10 +37,29 @@ This repo is now configured for automatic Vercel preview deployments on every pu
 Add these repository secrets (Settings → Secrets and variables → Actions):
 
 - `VERCEL_TOKEN` (from Vercel account token)
-- `VERCEL_ORG_ID` (team/user scope id from Vercel project settings)
 - `VERCEL_PROJECT_ID` (project id from Vercel project settings)
 
+`VERCEL_ORG_ID` and `VERCEL_SCOPE_ID` are already wired in the workflow file.
+
 > Note: `vercel pull` writes `.vercel/project.json` using those IDs during CI; no local server is required.
+
+
+### Integrated Vercel values
+
+The workflow is now preconfigured with:
+
+- `VERCEL_ORG_ID = pri_MX3VOXUoHB8MYPuV7yFWg0xXLwoL`
+- `VERCEL_SCOPE_ID = team_KNQkAsVXMrmHLG6ob6CIbSUA`
+
+For security, the token is **not** hardcoded in the repo.
+
+Set this GitHub secret:
+
+- `VERCEL_TOKEN` = your provided token
+
+Also set:
+
+- `VERCEL_PROJECT_ID` = your Vercel project id
 
 ### Result
 
