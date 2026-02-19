@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Futur4IsHere - Mobile AI Academy</title>
+  <style>
+    :root {
+      --bg: #070b1f;
+      --panel: #101938;
+      --panel-2: #0e1530;
+      --text: #edf2ff;
+      --muted: #b8c3e8;
+      --accent: #6ff6ff;
+      --accent2: #8d6dff;
+      --ok: #57ffbf;
+      --warn: #ff86aa;
+      --border: #30427d;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(96, 143, 255, .32) 0%, transparent 32%),
+        radial-gradient(circle at 85% 0%, rgba(160, 94, 255, .25) 0%, transparent 30%),
+        var(--bg);
+    }
+
+    .container { max-width: 920px; margin: 0 auto; padding: 1rem; display: grid; gap: .9rem; }
+
+    .card {
+      background: linear-gradient(180deg, rgba(17,25,54,.95), rgba(11,18,42,.95));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 14px 40px rgba(0,0,0,.26);
+    }
+
+    .hero {
+      border-color: #3f56a7;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: -40% -30% auto auto;
+      width: 200px;
+      height: 200px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(111,246,255,.28), transparent 65%);
+      pointer-events: none;
+    }
+
+    .pill { display: inline-block; padding: .34rem .6rem; border-radius: 999px; background: linear-gradient(90deg,var(--accent),var(--ok)); color:#041423; font-weight: 800; font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; }
+    h1 { margin: .55rem 0 .45rem; font-size: clamp(1.5rem, 6vw, 2.35rem); line-height: 1.14; }
+    h2 { margin: 0 0 .45rem; font-size: 1.1rem; }
+    p { margin: .3rem 0; color: var(--muted); line-height: 1.52; }
+
+    .notice {
+      margin-top: .7rem;
+      border: 1px solid #4c63b8;
+      background: linear-gradient(90deg, rgba(111,246,255,.2), rgba(141,109,255,.22));
+      border-radius: 10px;
+      padding: .58rem .68rem;
+      font-weight: 700;
+      color: #f4f7ff;
+    }
+
+    .progress-track { margin-top: .6rem; height: 12px; border-radius: 999px; border:1px solid #3a509e; background:#16224c; overflow:hidden; }
+    .progress-fill { height: 100%; width: 33%; background: linear-gradient(90deg,var(--accent),var(--ok)); transition: width .28s ease; }
+
+    .module { margin-top: .7rem; background: var(--panel-2); border: 1px solid #2d407f; border-radius: 11px; padding: .75rem; }
+    .module-header { display:flex; justify-content:space-between; gap:.6rem; align-items:center; }
+    .badge { font-size: .74rem; font-weight: 800; border-radius: 999px; border:1px solid #576ec8; background:#293a75; color:#dde5ff; padding:.2rem .55rem; white-space: nowrap; }
+    .badge.ok { background: rgba(87,255,191,.16); border-color: rgba(87,255,191,.45); color:#b9ffe5; }
+
+    .actions { display:flex; flex-wrap:wrap; gap:.55rem; margin-top:.65rem; }
+    button {
+      border:0; border-radius:10px; padding:.62rem .92rem; font-weight:700; cursor:pointer;
+      color:#061321; background: linear-gradient(90deg,var(--accent),var(--ok));
+    }
+    button[disabled] { cursor:not-allowed; filter: grayscale(.25) brightness(.75); }
+    .secondary { color:var(--text); background:#1f2d61; border:1px solid #445cae; }
+
+    pre, textarea {
+      width:100%; margin-top:.55rem; border-radius:10px; border:1px solid #3d56a9; background:#0a1230; color:#e3f7ff;
+      padding:.72rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:.82rem; line-height:1.42;
+    }
+    pre { white-space: pre-wrap; word-break: break-word; }
+    textarea { min-height: 180px; resize: vertical; }
+    iframe { width:100%; min-height:240px; margin-top:.55rem; border:1px solid #4059ae; border-radius:10px; background:#fff; }
+
+    .question { margin-top:.65rem; border:1px solid #334a95; border-radius:10px; background:#111b40; padding:.66rem; }
+    .question h3 { margin:0 0 .45rem; font-size:.95rem; }
+    .question label { display:block; margin:.3rem 0; color:#d8e2ff; }
+
+    .result { display:none; margin-top:.7rem; border-radius:10px; padding:.64rem .7rem; font-weight:700; border:1px solid rgba(255,134,170,.45); background:rgba(255,134,170,.12); color:#ffd8e5; }
+    .result.pass { border-color: rgba(87,255,191,.45); background:rgba(87,255,191,.14); color:#c0ffe8; }
+    .mini { font-size: .78rem; opacity:.92; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="card hero">
+      <span class="pill">futur4ishere • rebuilt</span>
+      <h1>Mobile AI Academy: learn to build web apps directly from chat.</h1>
+      <p>This rebuild is fully functional: module progression, auto-graded quiz, prompt unlock, and live HTML preview.</p>
+      <div class="notice">V4 Rebuild Active — if you saw stale UI before, hard refresh your browser/chat preview.</div>
+    </section>
+
+    <section class="card">
+      <h2>Class Progress</h2>
+      <p id="progressText">1 of 3 modules complete</p>
+      <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+
+      <article class="module">
+        <div class="module-header">
+          <strong>Module 1: Prompt Fundamentals</strong>
+          <span class="badge ok">Complete</span>
+        </div>
+        <p>Students learn format + constraints first.</p>
+      </article>
+
+      <article class="module">
+        <div class="module-header">
+          <strong>Module 2: Starter Prompt</strong>
+          <span id="mod2Badge" class="badge">Locked (pass quiz)</span>
+        </div>
+        <p>Prompt is intentionally unlocked only after test pass.</p>
+        <pre id="starterPrompt">You are my mobile vibe-coding coach.
+Build a single-file HTML web app I can run directly in mobile chat previews.
+Rules:
+1) Return only one complete HTML file between ```html code fences.
+2) Include all CSS and JavaScript in the same file.
+3) Make the UI mobile-first and touch-friendly.
+4) Keep buttons large and labels clear.
+5) Add a short "How to edit this app in chat" section at the top.
+6) After each version, suggest 3 tiny improvements I can ask for next.
+Now build: [describe your app idea here].</pre>
+        <div class="actions">
+          <button id="copyPrompt" class="secondary" disabled>Pass test to copy prompt</button>
+        </div>
+      </article>
+
+      <article class="module">
+        <div class="module-header">
+          <strong>Module 3: Live Preview Lab</strong>
+          <span id="mod3Badge" class="badge">Locked (pass quiz)</span>
+        </div>
+        <p>Paste HTML returned by AI and run instant preview.</p>
+        <textarea id="codeInput" disabled placeholder="Paste AI-generated HTML here..."></textarea>
+        <div class="actions">
+          <button id="runPreview" disabled>Run Preview</button>
+          <button id="loadExample" class="secondary" disabled>Load Example</button>
+        </div>
+        <iframe id="previewFrame" title="Preview sandbox"></iframe>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Module Test (Auto-Graded)</h2>
+      <p>Score 3/4 or better to unlock Modules 2 and 3 automatically.</p>
+      <form id="quizForm">
+        <div class="question">
+          <h3>1) What should AI return?</h3>
+          <label><input type="radio" name="q1" value="a"> One complete HTML file</label>
+          <label><input type="radio" name="q1" value="b"> Only bullet points</label>
+          <label><input type="radio" name="q1" value="c"> A zip file</label>
+        </div>
+        <div class="question">
+          <h3>2) Why keep CSS/JS in one file for mobile chat class?</h3>
+          <label><input type="radio" name="q2" value="a"> Faster copy/paste + preview</label>
+          <label><input type="radio" name="q2" value="b"> Better internet speed</label>
+          <label><input type="radio" name="q2" value="c"> No reason</label>
+        </div>
+        <div class="question">
+          <h3>3) Best iteration strategy?</h3>
+          <label><input type="radio" name="q3" value="a"> Ask for one small change at a time</label>
+          <label><input type="radio" name="q3" value="b"> Rewrite whole app every time</label>
+          <label><input type="radio" name="q3" value="c"> Skip testing</label>
+        </div>
+        <div class="question">
+          <h3>4) Where should students test generated HTML here?</h3>
+          <label><input type="radio" name="q4" value="a"> In Live Preview Lab iframe</label>
+          <label><input type="radio" name="q4" value="b"> Never test</label>
+          <label><input type="radio" name="q4" value="c"> Desktop only</label>
+        </div>
+        <div class="actions"><button type="submit">Submit Test</button></div>
+      </form>
+      <div id="quizResult" class="result"></div>
+      <p class="mini">Codeword retained: futur4ishere.</p>
+    </section>
+  </main>
+
+  <script>
+    const answerKey = { q1: 'a', q2: 'a', q3: 'a', q4: 'a' };
+
+    const quizForm = document.getElementById('quizForm');
+    const quizResult = document.getElementById('quizResult');
+    const progressText = document.getElementById('progressText');
+    const progressFill = document.getElementById('progressFill');
+    const mod2Badge = document.getElementById('mod2Badge');
+    const mod3Badge = document.getElementById('mod3Badge');
+
+    const starterPrompt = document.getElementById('starterPrompt');
+    const copyPrompt = document.getElementById('copyPrompt');
+
+    const codeInput = document.getElementById('codeInput');
+    const runPreview = document.getElementById('runPreview');
+    const loadExample = document.getElementById('loadExample');
+    const previewFrame = document.getElementById('previewFrame');
+
+    function unlockModules() {
+      copyPrompt.disabled = false;
+      copyPrompt.textContent = 'Copy Starter Prompt';
+      codeInput.disabled = false;
+      runPreview.disabled = false;
+      loadExample.disabled = false;
+
+      mod2Badge.classList.add('ok');
+      mod2Badge.textContent = 'Complete';
+      mod3Badge.classList.add('ok');
+      mod3Badge.textContent = 'Complete';
+
+      progressText.textContent = '3 of 3 modules complete';
+      progressFill.style.width = '100%';
+    }
+
+    quizForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let score = 0;
+
+      for (const [q, correct] of Object.entries(answerKey)) {
+        const selected = quizForm.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === correct) score += 1;
+      }
+
+      quizResult.style.display = 'block';
+      if (score >= 3) {
+        quizResult.classList.add('pass');
+        quizResult.textContent = `Passed ${score}/4. Modules unlocked automatically.`;
+        unlockModules();
+      } else {
+        quizResult.classList.remove('pass');
+        quizResult.textContent = `Score ${score}/4. Need at least 3/4 to pass.`;
+      }
+    });
+
+    copyPrompt.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(starterPrompt.textContent);
+      const label = copyPrompt.textContent;
+      copyPrompt.textContent = 'Copied!';
+      setTimeout(() => { copyPrompt.textContent = label; }, 1200);
+    });
+
+    runPreview.addEventListener('click', () => {
+      const html = codeInput.value.trim();
+      if (!html) return;
+      previewFrame.srcdoc = html;
+    });
+
+    loadExample.addEventListener('click', () => {
+      const demo = `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;padding:14px;background:#f5f7ff;font-family:system-ui}.card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 5px 16px rgba(0,0,0,.08)}button{width:100%;padding:12px;border:0;border-radius:9px;background:#4f56ff;color:#fff;font-size:16px}</style></head><body><div class="card"><h3>Habit Builder</h3><p id="n">Done: 0</p><button onclick="const p=document.getElementById('n');const n=Number(p.textContent.split(': ')[1])+1;p.textContent='Done: '+n;">+1</button></div></body></html>`;
+      codeInput.value = demo;
+      previewFrame.srcdoc = demo;
+    });
+  </script>
+</body>
+</html>
