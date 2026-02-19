@@ -115,15 +115,18 @@
 
     <section class="card">
       <h2>Class Progress</h2>
-      <p id="progressText">1 of 3 modules complete</p>
-      <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+      <p id="progressText">0 of 3 modules complete</p>
+      <div class="progress-track"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
 
       <article class="module">
         <div class="module-header">
           <strong>Module 1: Prompt Fundamentals</strong>
-          <span class="badge ok">Complete</span>
+          <span id="mod1Badge" class="badge">In progress</span>
         </div>
-        <p>Students learn format + constraints first.</p>
+        <p>Students learn format + constraints first. When done, tap the button below to unlock the test.</p>
+        <div class="actions">
+          <button id="completeModule1" class="secondary">Mark Module 1 Complete</button>
+        </div>
       </article>
 
       <article class="module">
@@ -190,7 +193,7 @@ Now build: [describe your app idea here].</pre>
           <label><input type="radio" name="q4" value="b"> Never test</label>
           <label><input type="radio" name="q4" value="c"> Desktop only</label>
         </div>
-        <div class="actions"><button type="submit">Submit Test</button></div>
+        <div class="actions"><button id="submitQuiz" type="submit" disabled>Complete Module 1 to unlock test</button></div>
       </form>
       <div id="quizResult" class="result"></div>
       <p class="mini">Codeword retained: futur4ishere.</p>
@@ -204,8 +207,11 @@ Now build: [describe your app idea here].</pre>
     const quizResult = document.getElementById('quizResult');
     const progressText = document.getElementById('progressText');
     const progressFill = document.getElementById('progressFill');
+    const mod1Badge = document.getElementById('mod1Badge');
     const mod2Badge = document.getElementById('mod2Badge');
     const mod3Badge = document.getElementById('mod3Badge');
+    const completeModule1 = document.getElementById('completeModule1');
+    const submitQuiz = document.getElementById('submitQuiz');
 
     const starterPrompt = document.getElementById('starterPrompt');
     const copyPrompt = document.getElementById('copyPrompt');
@@ -214,6 +220,21 @@ Now build: [describe your app idea here].</pre>
     const runPreview = document.getElementById('runPreview');
     const loadExample = document.getElementById('loadExample');
     const previewFrame = document.getElementById('previewFrame');
+
+
+    let module1Done = false;
+
+    completeModule1.addEventListener('click', () => {
+      module1Done = true;
+      mod1Badge.classList.add('ok');
+      mod1Badge.textContent = 'Complete';
+      progressText.textContent = '1 of 3 modules complete';
+      progressFill.style.width = '33%';
+      submitQuiz.disabled = false;
+      submitQuiz.textContent = 'Submit Test';
+      completeModule1.disabled = true;
+      completeModule1.textContent = 'Module 1 Completed';
+    });
 
     function unlockModules() {
       copyPrompt.disabled = false;
@@ -233,6 +254,12 @@ Now build: [describe your app idea here].</pre>
 
     quizForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (!module1Done) {
+        quizResult.style.display = 'block';
+        quizResult.classList.remove('pass');
+        quizResult.textContent = 'Complete Module 1 first to unlock the test.';
+        return;
+      }
       let score = 0;
 
       for (const [q, correct] of Object.entries(answerKey)) {

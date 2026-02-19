@@ -5,9 +5,9 @@ Ground-up rebuild of the mobile-first academy page.
 ## What works
 
 - Premium mobile-friendly UI with clear "V4 Rebuild Active" marker.
-- Module progression with auto-graded quiz (pass threshold: 3/4).
-- Starter prompt remains locked until test pass.
-- Live preview lab remains locked until test pass.
+- Module progression with required Module 1 completion, then auto-graded quiz (pass threshold: 3/4).
+- Starter prompt remains locked until Module 1 is completed and test is passed.
+- Live preview lab remains locked until Module 1 is completed and test is passed.
 - Copy prompt and HTML preview tools unlock automatically after pass.
 - **No localhost or backend server required** (single static HTML file).
 
