@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Futur4IsHere Mobile AI Academy</title>
+  <style>
+    :root {
+      --bg: #040613;
+      --card: #11162b;
+      --text: #e8ecff;
+      --muted: #b0b9df;
+      --accent: #67f0ff;
+      --accent-2: #a95bff;
+      --good: #4dffbc;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 15%, #1f2d71 0%, transparent 30%),
+        radial-gradient(circle at 85% 5%, #4d1c89 0%, transparent 35%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #131c3a, #0c1022);
+      border: 1px solid #293463;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: 0 0 40px rgba(103, 240, 255, 0.08);
+    }
+
+    .pill {
+      display: inline-block;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: #041020;
+      background: linear-gradient(90deg, var(--accent), #98ffd7);
+      padding: 0.35rem 0.55rem;
+      border-radius: 999px;
+      margin-bottom: 0.8rem;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 1.2;
+      font-size: clamp(1.5rem, 6vw, 2.4rem);
+    }
+
+    p { color: var(--muted); line-height: 1.55; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 0.9rem;
+    }
+
+    button {
+      border: 0;
+      border-radius: 0.65rem;
+      font-weight: 700;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .primary {
+      color: #061324;
+      background: linear-gradient(90deg, var(--accent), var(--good));
+      box-shadow: 0 4px 18px rgba(103, 240, 255, 0.3);
+    }
+
+    .secondary {
+      color: var(--text);
+      background: #1c2445;
+      border: 1px solid #3a477f;
+    }
+
+    .grid {
+      margin-top: 1rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid #2a3360;
+      border-radius: 0.85rem;
+      padding: 0.9rem;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.08rem;
+    }
+
+    .copy-box {
+      position: relative;
+      background: #080d20;
+      border: 1px solid #243060;
+      border-radius: 0.7rem;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 0.8rem;
+      color: #d6f6ff;
+      line-height: 1.45;
+    }
+
+    .inline-btn {
+      margin-top: 0.55rem;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.82rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 210px;
+      border-radius: 0.7rem;
+      border: 1px solid #30408b;
+      background: #0a1129;
+      color: #dbf6ff;
+      padding: 0.75rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      resize: vertical;
+    }
+
+    iframe {
+      width: 100%;
+      min-height: 240px;
+      border: 1px solid #2f3f8f;
+      border-radius: 0.7rem;
+      background: white;
+    }
+
+    dialog {
+      border: 1px solid #33438d;
+      border-radius: 0.9rem;
+      background: #0d142f;
+      color: var(--text);
+      width: min(90vw, 560px);
+      padding: 1rem;
+    }
+
+    dialog::backdrop { background: rgba(1, 3, 10, 0.75); }
+
+    .lesson-list { padding-left: 1rem; color: #dbe6ff; }
+
+    .codeword {
+      color: #1a162a;
+      background: linear-gradient(90deg, #f4f0ff, #b2f9ff);
+      padding: 0.1rem 0.45rem;
+      border-radius: 0.45rem;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <span class="pill">Mobile-first AI Academy</span>
+      <h1>Teach students to vibe-code web apps from AI chat on phone.</h1>
+      <p>
+        This one-page program is built for mobile learners using ChatGPT, Gemini, and similar AI chats.
+        Students copy one mega-prompt, paste it in chat, and immediately render app previews right in chat.
+      </p>
+      <div class="actions">
+        <button id="startLesson" class="primary">Start Lessons</button>
+        <button id="copyPromptTop" class="secondary">Copy One-Paste Prompt</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>1) One single copy-and-paste starter prompt</h2>
+        <p>Students paste this once into AI chat, then ask for edits in plain language.</p>
+        <div class="copy-box">
+          <pre id="starterPrompt">You are my mobile vibe-coding coach.
+Build a single-file HTML web app I can run directly in mobile chat previews.
+Rules:
+1) Return only one complete HTML file between ```html code fences.
+2) Include all CSS and JavaScript in the same file.
+3) Make the UI mobile-first and touch-friendly.
+4) Keep buttons large and labels clear.
+5) Add a short "How to edit this app in chat" section at the top.
+6) After each version, suggest 3 tiny improvements I can ask for next.
+Now build: [describe your app idea here].</pre>
+          <button id="copyPrompt" class="secondary inline-btn">Copy Prompt</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>2) Practice preview lab (paste generated HTML)</h2>
+        <p>Use this to show students how chat-generated code can instantly render as a live app preview.</p>
+        <textarea id="codeInput" placeholder="Paste the HTML output from AI chat here..."></textarea>
+        <div class="actions">
+          <button id="runPreview" class="primary">Run Preview</button>
+          <button id="loadExample" class="secondary">Load Example App</button>
+        </div>
+        <iframe id="previewFrame" title="App preview sandbox"></iframe>
+      </article>
+    </section>
+  </div>
+
+  <dialog id="lessonDialog">
+    <h2>Welcome to <span class="codeword">futur4ishere</span></h2>
+    <p>
+      This is your quick-start lesson pop-up. Tell students the code word <strong>futur4ishere</strong> to begin class.
+    </p>
+    <ol class="lesson-list">
+      <li>Copy the one-paste prompt.</li>
+      <li>Open ChatGPT/Gemini on mobile and paste it.</li>
+      <li>Replace the app idea with your own project goal.</li>
+      <li>Run each output in the preview lab to test instantly.</li>
+      <li>Ask AI for one small upgrade at a time.</li>
+    </ol>
+    <div class="actions">
+      <button id="closeDialog" class="primary">Let’s Build</button>
+    </div>
+  </dialog>
+
+  <script>
+    const starterPromptEl = document.getElementById('starterPrompt');
+    const copyPromptBtn = document.getElementById('copyPrompt');
+    const copyPromptTopBtn = document.getElementById('copyPromptTop');
+    const startLessonBtn = document.getElementById('startLesson');
+    const lessonDialog = document.getElementById('lessonDialog');
+    const closeDialogBtn = document.getElementById('closeDialog');
+    const codeInput = document.getElementById('codeInput');
+    const runPreviewBtn = document.getElementById('runPreview');
+    const loadExampleBtn = document.getElementById('loadExample');
+    const previewFrame = document.getElementById('previewFrame');
+
+    async function copyStarterPrompt(buttonEl) {
+      const text = starterPromptEl.textContent;
+      await navigator.clipboard.writeText(text);
+      const old = buttonEl.textContent;
+      buttonEl.textContent = 'Copied!';
+      setTimeout(() => buttonEl.textContent = old, 1200);
+    }
+
+    copyPromptBtn.addEventListener('click', () => copyStarterPrompt(copyPromptBtn));
+    copyPromptTopBtn.addEventListener('click', () => copyStarterPrompt(copyPromptTopBtn));
+
+    startLessonBtn.addEventListener('click', () => {
+      if (typeof lessonDialog.showModal === 'function') {
+        lessonDialog.showModal();
+      }
+    });
+
+    closeDialogBtn.addEventListener('click', () => lessonDialog.close());
+
+    runPreviewBtn.addEventListener('click', () => {
+      const src = codeInput.value.trim();
+      if (!src) return;
+      previewFrame.srcdoc = src;
+    });
+
+    loadExampleBtn.addEventListener('click', () => {
+      const demo = `<!DOCTYPE html>
+<html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+body { font-family: system-ui; margin: 0; padding: 14px; background: #f4f8ff; }
+.card { background: white; padding: 14px; border-radius: 10px; box-shadow: 0 5px 18px rgba(0,0,0,.08); }
+button { width: 100%; border: 0; border-radius: 8px; padding: 12px; background: #4c55ff; color: white; font-size: 16px; }
+</style></head><body><div class="card"><h3>Mobile Habit Tracker</h3><p id="n">Habits done: 0</p><button onclick="const p=document.getElementById('n');const v=Number(p.textContent.split(': ')[1])+1;p.textContent='Habits done: '+v">+1 Habit</button></div></body></html>`;
+      codeInput.value = demo;
+      previewFrame.srcdoc = demo;
+    });
+  </script>
+</body>
+</html>
